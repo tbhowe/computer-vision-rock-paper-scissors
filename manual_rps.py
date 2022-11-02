@@ -33,11 +33,40 @@ def get_user_choice():
         else:
             print("Invalid letter. Please, enter a single alphabetical character.")
 
-# test the code
-# computer_choice=get_computer_choice()
-# print("computer's move is:")
-# print(computer_choice)
+def get_winner(computer_choice,user_choice):
+    if computer_choice=='Rock':
 
-# user_choice=get_user_choice()
-# print("user's move is:")
-# print(user_choice)
+        if user_choice=='Rock':
+            print("it's a draw!")
+        elif user_choice=='Paper':
+            print("user wins! (Paper wraps Rock)")
+        elif user_choice=='Scissors':
+            print("user loses! (Rock blunts Scissors)")
+
+    elif computer_choice=='Paper':
+
+        if user_choice=='Rock':
+            print("user loses! (Paper wraps Rock)")
+        elif user_choice=='Paper':
+            print("it's a draw!")
+        elif user_choice=='Scissors':
+            print("user wins! (Scissors cut Paper)")  
+
+    elif computer_choice=='Scissors':
+        if user_choice=='Rock':
+            print("user wins! (Rock blunts Scissors)")
+        elif user_choice=='Paper':
+            print("user loses! (Scissors cut Paper)")
+        elif user_choice=='Scissors':
+            print("it's a draw!")
+
+# test the code
+computer_choice=get_computer_choice()
+print("computer's move is:")
+print(computer_choice)
+
+user_choice=get_user_choice()
+print("user's move is:")
+print(user_choice)
+
+get_winner(computer_choice,user_choice)
