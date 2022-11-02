@@ -4,6 +4,7 @@
 # import packages
 import numpy as np
 import random
+import time
 # import cv2
 # from keras.models import load_model
 
@@ -24,7 +25,7 @@ def get_user_choice():
     }
     while True:
         # Request input from user of a single letter
-        user_choice=input("please enter a move (r,p,s = rock, paper, scissors")
+        user_choice=input("please enter a move (r,p,s = rock, paper, scissors): ")
         #checks that input is alphabetical AND of length 1. Escapes if both conditions met
         if user_choice in move_list.keys():
             print('thanks!')
@@ -60,13 +61,16 @@ def get_winner(computer_choice,user_choice):
         elif user_choice=='Scissors':
             print("it's a draw!")
 
+def play():
+    print("let's play Rock, Paper, Scissors - I'll go first!")
+    time.sleep(3)
+    computer_choice = get_computer_choice()
+    print ("Ok! thought of one!")
+    time.sleep(1)
+    print("Now your turn!") 
+    user_choice = get_user_choice()
+    time.sleep(1)
+    get_winner(computer_choice,user_choice)
+
 # test the code
-computer_choice=get_computer_choice()
-print("computer's move is:")
-print(computer_choice)
-
-user_choice=get_user_choice()
-print("user's move is:")
-print(user_choice)
-
-get_winner(computer_choice,user_choice)
+play()
