@@ -12,3 +12,15 @@ The model (using Keras API for Tensorflow) is then trained remotely on the web t
 
 Preliminary qualitative testing indicates a passable discrimination between classes, with the model defaulting to the "nothing" class when no hand input was shown. There are noticeable edge cases, not least the literal edge case of some inputs being unidentifiable when presented at the edges of the FOV. Optimisation of the model itself should be revisited in a future milestone.
 
+## Milestones 3 and 4:
+
+As a precursor to the computer-vision version of the game, the file manual_rps.py contains a simple manual-play version of the game. This version consists of four functions:
+
+- get_user_choice() - this function requests input from the user inside an iterative while loop, using a single keypress. If a valid keypress is made, it returns the relevant string (eg. "r" input gives "Rock) via a dictionary lookup, else it prompts the user for a valid keypress.
+
+- get_computer_choice() - this function uses the choice method from the random package to make a random choice from the three possible moves, and returns the move.
+
+- get_winner() - this function takes the outputs of get_user_choice() and get_computer_choice() and returns the game outcome. The game logic is coded in nested if loops.
+
+- play() - a wrapper function that prompts describes the game workflow, prompting and informing the user with short time delays introduced by the time.sleep() method from the time package. It then updates the user with the result of the game. 
+
