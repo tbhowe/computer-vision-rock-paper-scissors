@@ -11,16 +11,16 @@ import random
 
 def get_computer_choice():
     # Define list of possible moves
-    move_list = ["rock", "paper", "scissors"]
+    move_list = ["Rock", "Paper", "Scissors"]
     # Choose a random word from the list of possible words
     computer_choice = random.choice(move_list)
     return(computer_choice)
 
 def get_user_choice():
     move_list = {
-    "r": "rock",
-    "p": "paper",
-    "s": "scissors"
+    "r": "Rock",
+    "p": "Paper",
+    "s": "Scissors"
     }
     while True:
         # Request input from user of a single letter
@@ -34,10 +34,10 @@ def get_user_choice():
             print("Invalid letter. Please, enter a single alphabetical character.")
 
 # test the code
-computer_choice=get_computer_choice()
-print("computer's move is:")
-print(computer_choice)
+# computer_choice=get_computer_choice()
+# print("computer's move is:")
+# print(computer_choice)
 
-user_choice=get_user_choice()
-print("user's move is:")
-print(user_choice)
+# user_choice=get_user_choice()
+# print("user's move is:")
+# print(user_choice)
