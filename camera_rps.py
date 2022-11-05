@@ -190,45 +190,44 @@ class RPSgame:
 
 def play_game(model,nwins):
     
+    
+    game=RPSgame(model)
+    # print("Let's play Rock, Paper, Scissors - First to 3 wins!")
+    game.play_intro()
+    
     while True:
-        game=RPSgame(model)
-        # print("Let's play Rock, Paper, Scissors - First to 3 wins!")
-        game.play_intro()
-        
-        while True:
-            if game.user_wins==nwins:
-                # print("Player Wins" + str(nwins) +"games!")
-                msg1="Player Wins " + str(nwins) +"games!"
-                msg2=" "
-                game.user_update(msg1,msg2)
-                
-            elif game.computer_wins==nwins:
-                msg1="Computer Wins " + str(nwins) +"games!"
-                msg2=" "
-                game.user_update(msg1,msg2)
-                break
-            elif game.unresolved==nwins:
-                msg1="failed to get player move too many times!"
-                msg2=" "
-                game.user_update(msg1,msg2)
-                break
-            else:
-                game.get_computer_choice()
-                game.get_prediction()
-                game.get_winner()
-            msg1="computer wins: " + str(game.computer_wins)
-            msg2="player wins: " + str(game.user_wins)
+        if game.user_wins==nwins:
+            # print("Player Wins" + str(nwins) +"games!")
+            msg1="Player Wins " + str(nwins) +" games!"
+            msg2="GAME OVER"
             game.user_update(msg1,msg2)
-            # print("computer wins: " + str(game.computer_wins))
-            # print("player wins: " + str(game.user_wins)) 
-    return()       
+            
+        elif game.computer_wins==nwins:
+            msg1="Computer Wins " + str(nwins) +" games!"
+            msg2="GAME OVER"
+            game.user_update(msg1,msg2)
+            return()
+        elif game.unresolved==nwins:
+            msg1="failed to get player move too many times!"
+            msg2=" "
+            game.user_update(msg1,msg2)
+            return()
+        else:
+            game.get_computer_choice()
+            game.get_prediction()
+            game.get_winner()
+        msg1="computer wins: " + str(game.computer_wins)
+        msg2="player wins: " + str(game.user_wins)
+        game.user_update(msg1,msg2)
+        # print("computer wins: " + str(game.computer_wins))
+        # print("player wins: " + str(game.user_wins)) 
+        
+   
             
      
 
-continueflag=1
-while True:
-    play_game(model,1)
-    if continueflag==0:
-        break
+
+play_game(model,3)
+
 
 
