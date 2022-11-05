@@ -22,6 +22,7 @@ class RPSgame:
         self.computer_choice = "Nothing"
         self.user_choice= "Rock"
         self.model=model
+        self.unresolved=0
     
     def get_computer_choice(self):
         # Define list of possible moves
@@ -75,6 +76,7 @@ class RPSgame:
                 return()
         else:
             print('invalid user choice')
+            self.unresolved+=1
             return()
 
     def get_prediction(self):
@@ -134,10 +136,30 @@ class RPSgame:
         cv2.destroyAllWindows()
         self.user_choice=move_lookup[prediction.argmax()]
         return()
+    
+    def play_intro(self):
+        introtime=3
+        cap = cv2.VideoCapture(0)
+        t_zero=time.time()
+        # TEXT OPTIONS
+        # font
+        font = cv2.FONT_HERSHEY_SIMPLEX   
+        # White in BGR
+        color = (255, 255, 255) 
+
+        while time.time() < t_zero+introtime:
+            ret, frame = cap.read()
+            overlaytext="LET'S PLAY ROCK, PAPER, SCISSORS"
+            frame2=cv2.putText(frame, overlaytext, (50, 50), font, 1, color, 2, cv2.LINE_AA)
+
+
+        
+
 
 def play_game(model):
     game=RPSgame(model)
-    print("Let's play Rock, Paper, Scissors - First to 3 wins!")
+    # print("Let's play Rock, Paper, Scissors - First to 3 wins!")
+    game.play_intro()
     time.sleep(1)
     while True:
                 if game.user_wins==3:
@@ -145,6 +167,9 @@ def play_game(model):
                     break
                 elif game.computer_wins==3:
                     print("Computer Wins 3 games!")
+                    break
+                elif game.unresolved=5
+                    print("failed to get player move too many times!")
                     break
                 else:
                     game.get_computer_choice()
