@@ -72,6 +72,9 @@ class RPSgame:
             elif self.user_choice=='Scissors':
                 print("it's a draw!")
                 return()
+        else:
+            print('invalid user choice')
+            return()
 
     def get_prediction(self):
         # define a video capture object
@@ -129,15 +132,18 @@ class RPSgame:
         self.user_choice=move_lookup[prediction.argmax()]
         return()
 
-game=RPSgame(model)
-while True:
-            if game.user_wins==3:
-                print("Player Wins 3 games!")
-                break
-            elif game.computer_wins==3:
-                print("Computer Wins 3 games!")
-                break
-            else:
-                game.get_computer_choice()
-                game.get_prediction()
-                game.get_winner()
+def play_game(model)
+    game=RPSgame(model)
+    while True:
+                if game.user_wins==3:
+                    print("Player Wins 3 games!")
+                    break
+                elif game.computer_wins==3:
+                    print("Computer Wins 3 games!")
+                    break
+                else:
+                    game.get_computer_choice()
+                    game.get_prediction()
+                    game.get_winner()
+
+play_game(model)
