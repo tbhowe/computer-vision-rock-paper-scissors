@@ -24,3 +24,14 @@ As a precursor to the computer-vision version of the game, the file manual_rps.p
 
 - play() - a wrapper function that prompts describes the game workflow, prompting and informing the user with short time delays introduced by the time.sleep() method from the time package. It then updates the user with the result of the game. 
 
+## Milestone 5
+
+### Getting user input via Keras model
+
+The function get_prediction() opens an openCV capture window and passes each capture frame to the input layer of the keras model. The captured frame is then displayed with a countdown timer in seconds and the current prediction of the model, for user feedback. When the countdown timer reaches zero, the move corresponding to the argmax of the softmax layer on that frame is returned as an output of the function.
+
+### Making the full game
+
+The functions get_prediciton(), get_computer_choice() and get_winner() are wrapped as methods of a class, RPS. The init method of the class requires the keras model as an input, and assigns number of wins for each player as attributes.
+
+The final game is then created using a function, play_game(), which creates an instance of RPS, and runs repeat instances of the game by calling its methods inside an iterating while loop, which terminates if either player reaches three wins.
