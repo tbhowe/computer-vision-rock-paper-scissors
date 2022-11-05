@@ -195,13 +195,20 @@ def play_game(model,nwins):
     
     while True:
                 if game.user_wins==nwins:
-                    print("Player Wins" + str(nwins) +"games!")
+                    # print("Player Wins" + str(nwins) +"games!")
+                    msg1="Player Wins" + str(nwins) +"games!"
+                    msg2="continue y/n?"
+                    game.user_update(msg1,msg2)
                     break
                 elif game.computer_wins==nwins:
-                    print("Computer Wins" + str(nwins) +"games!")
+                    msg1="Computer Wins" + str(nwins) +"games!"
+                    msg2="continue y/n?"
+                    game.user_update(msg1,msg2)
                     break
                 elif game.unresolved==nwins:
-                    print("failed to get player move too many times!")
+                    msg1="failed to get player move too many times!"
+                    msg2="continue y/n?"
+                    game.user_update(msg1,msg2)
                     break
                 else:
                     game.get_computer_choice()
