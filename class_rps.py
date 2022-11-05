@@ -52,6 +52,7 @@ class RPSgame:
             if self.user_choice=='Rock':
                 print("user loses! (Paper wraps Rock)")
                 self.computer_wins+=1
+                return()
             elif self.user_choice=='Paper':
                 print("it's a draw!")
                 return()
@@ -98,9 +99,11 @@ class RPSgame:
         # White in BGR
         color = (255, 255, 255) 
 
+        # countdown variable
+        countmax=3
 
         # run a 10-second capture countup
-        while time.time() < time_init+10:
+        while time.time() < time_init+countmax:
         
             # Capture the video frame
             # by frame
@@ -110,7 +113,7 @@ class RPSgame:
             normalized_image = (image_np.astype(np.float32) / 127.0) - 1 # Normalize the image
             data[0] = normalized_image
             prediction = self.model.predict(data)
-            cdowntext = str(int(time_init+10-time.time()))
+            cdowntext = str(int(time_init+countmax-time.time()))
             predicttext=move_lookup[prediction.argmax()]
             frame2=cv2.putText(frame, cdowntext, (50, 50), font, 1, color, 2, cv2.LINE_AA)
             frame2=cv2.putText(frame, predicttext, (100, 50), font, 1, color, 2, cv2.LINE_AA)
@@ -132,18 +135,40 @@ class RPSgame:
         self.user_choice=move_lookup[prediction.argmax()]
         return()
 
-def play_game(model)
-    game=RPSgame(model)
-    while True:
-                if game.user_wins==3:
-                    print("Player Wins 3 games!")
-                    break
-                elif game.computer_wins==3:
-                    print("Computer Wins 3 games!")
-                    break
-                else:
-                    game.get_computer_choice()
-                    game.get_prediction()
-                    game.get_winner()
+# def play_game(model):
+#     game=RPSgame(model)
+#     print("Let's play Rock, Paper, Scissors - First to 3 wins!")
+#     time.sleep(1)
+#     while True:
+#                 if game.user_wins==3:
+#                     print("Player Wins 3 games!")
+#                     break
+#                 elif game.computer_wins==3:
+#                     print("Computer Wins 3 games!")
+#                     break
+#                 else:
+#                     game.get_computer_choice()
+#                     game.get_prediction()
+#                     game.get_winner()
+#                 print("computer wins: " + str(game.computer_wins))
+#                 print("player wins: " + str(game.computer_wins))
+#                 time.sleep(1)
 
-play_game(model)
+# play_game(model)
+
+game=RPSgame(model)
+print("Let's play Rock, Paper, Scissors - First to 3 wins!")
+time.sleep(1)
+while True:
+            if game.user_wins==3:
+                print("Player Wins 3 games!")
+                break
+            elif game.computer_wins==3:
+                print("Computer Wins 3 games!")
+                break
+            else:
+                game.get_computer_choice()
+                game.get_prediction()
+                game.get_winner()
+            print("computer wins: " + str(game.computer_wins))
+            print("player wins: " + str(game.user_wins))
