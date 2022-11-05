@@ -23,7 +23,10 @@ class RPSgame:
         self.user_choice= "Rock"
         self.model=model
         self.unresolved=0
-    
+        self.intermission=3 # number of seconds to show intermission screens
+        self.font=cv2.FONT_HERSHEY_SIMPLEX
+        self.fontcolor= (255, 255, 255) 
+
     def get_computer_choice(self):
         # Define list of possible moves
         move_list = ["Rock", "Paper", "Scissors"]
@@ -105,16 +108,10 @@ class RPSgame:
             3 : "Nothing"
             }
 
-        # TEXT OPTIONS
-        # font
-        font = cv2.FONT_HERSHEY_SIMPLEX   
-        # White in BGR
-        color = (255, 255, 255) 
-
         # countdown variable
         countmax=3
 
-        # run a 10-second capture countup
+        # run a capture countdown
         while time.time() < time_init+countmax:
         
             # Capture the video frame
@@ -127,8 +124,8 @@ class RPSgame:
             prediction = self.model.predict(data)
             cdowntext = str(int(time_init+countmax-time.time()))
             predicttext=move_lookup[prediction.argmax()]
-            frame2=cv2.putText(frame, cdowntext, (50, 50), font, 1, color, 2, cv2.LINE_AA)
-            frame2=cv2.putText(frame, predicttext, (100, 50), font, 1, color, 2, cv2.LINE_AA)
+            frame2=cv2.putText(frame, cdowntext, (50, 50), self.font, 1, self.fontcolor, 2, cv2.LINE_AA)
+            frame2=cv2.putText(frame, predicttext, (100, 50), self.font, 1, self.fontcolor, 2, cv2.LINE_AA)
             # Display the resulting frame
             cv2.imshow('frame', frame2)
             #print(move_lookup[prediction.argmax()])
@@ -147,24 +144,44 @@ class RPSgame:
         self.user_choice=move_lookup[prediction.argmax()]
         return()
     
+    def play_intro(self):
+        introtime=3
+        cap = cv2.VideoCapture(0)
+        t_zero=time.time()
+        
+        while time.time() < t_zero+introtime:
+            ret, frame = cap.read()
+            overlaytext="LET'S PLAY ROCK, PAPER, SCISSORS."
+            frame2=cv2.putText(frame, overlaytext, (50, 50), self.font, 1, self.fontcolor, 2, cv2.LINE_AA)
+            overlaytext2="first to three wins!."
+            frame2=cv2.putText(frame2, overlaytext2, (50, 100), self.font, 1, self.fontcolor, 2, cv2.LINE_AA)
+            # Display the resulting frame
+            cv2.imshow('frame', frame2)
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
+        # After the loop release the cap object
+        cap.release()
+        # Destroy all the windows
+        cv2.destroyAllWindows()
+    
     
 
         
 
 
-def play_game(model):
+def play_game(model,nwins):
     game=RPSgame(model)
-    print("Let's play Rock, Paper, Scissors - First to 3 wins!")
+    # print("Let's play Rock, Paper, Scissors - First to 3 wins!")
+    game.play_intro()
     
-    time.sleep(1)
     while True:
-                if game.user_wins==3:
+                if game.user_wins==nwins:
                     print("Player Wins 3 games!")
                     break
-                elif game.computer_wins==3:
+                elif game.computer_wins==nwins:
                     print("Computer Wins 3 games!")
                     break
-                elif game.unresolved==5:
+                elif game.unresolved==nwins:
                     print("failed to get player move too many times!")
                     break
                 else:
@@ -175,5 +192,5 @@ def play_game(model):
                 print("player wins: " + str(game.user_wins))    
 
 
-play_game(model)
+play_game(model,1)
 
