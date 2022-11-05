@@ -46,6 +46,10 @@ class RPSgame:
                 print("computer wins! (Rock blunts Scissors)")
                 self.computer_wins+=1
                 return()
+            elif self.user_choice=="Nothing":
+                print('invalid user choice')
+                self.unresolved+=1
+                return()
 
 
         elif self.computer_choice=='Paper':
@@ -61,6 +65,10 @@ class RPSgame:
                 print("user wins! (Scissors cut Paper)") 
                 self.user_wins+=1 
                 return()
+            elif self.user_choice=="Nothing":
+                print('invalid user choice')
+                self.unresolved+=1
+                return()
 
         elif self.computer_choice=='Scissors':
             if self.user_choice=='Rock':
@@ -74,10 +82,12 @@ class RPSgame:
             elif self.user_choice=='Scissors':
                 print("it's a draw!")
                 return()
-        else:
-            print('invalid user choice')
-            self.unresolved+=1
-            return()
+            elif self.user_choice=="Nothing":
+                print('invalid user choice')
+                self.unresolved+=1
+                return()
+
+        
 
     def get_prediction(self):
         # define a video capture object
@@ -137,29 +147,15 @@ class RPSgame:
         self.user_choice=move_lookup[prediction.argmax()]
         return()
     
-    def play_intro(self):
-        introtime=3
-        cap = cv2.VideoCapture(0)
-        t_zero=time.time()
-        # TEXT OPTIONS
-        # font
-        font = cv2.FONT_HERSHEY_SIMPLEX   
-        # White in BGR
-        color = (255, 255, 255) 
-
-        while time.time() < t_zero+introtime:
-            ret, frame = cap.read()
-            overlaytext="LET'S PLAY ROCK, PAPER, SCISSORS"
-            frame2=cv2.putText(frame, overlaytext, (50, 50), font, 1, color, 2, cv2.LINE_AA)
-
+    
 
         
 
 
 def play_game(model):
     game=RPSgame(model)
-    # print("Let's play Rock, Paper, Scissors - First to 3 wins!")
-    game.play_intro()
+    print("Let's play Rock, Paper, Scissors - First to 3 wins!")
+    
     time.sleep(1)
     while True:
                 if game.user_wins==3:
@@ -168,7 +164,7 @@ def play_game(model):
                 elif game.computer_wins==3:
                     print("Computer Wins 3 games!")
                     break
-                elif game.unresolved=5
+                elif game.unresolved==5:
                     print("failed to get player move too many times!")
                     break
                 else:
