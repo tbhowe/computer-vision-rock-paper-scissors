@@ -164,6 +164,25 @@ class RPSgame:
         # Destroy all the windows
         cv2.destroyAllWindows()
     
+    def user_update(self, msg1, msg2):
+        
+        cap = cv2.VideoCapture(0)
+        t_zero=time.time()
+        
+        while time.time() < t_zero+self.intermission:
+            ret, frame = cap.read()
+            frame2=cv2.putText(frame, msg1, (50, 50), self.font, 1, self.fontcolor, 2, cv2.LINE_AA)
+            overlaytext2="first to three wins!."
+            frame2=cv2.putText(frame2, msg2, (50, 100), self.font, 1, self.fontcolor, 2, cv2.LINE_AA)
+            # Display the resulting frame
+            cv2.imshow('frame', frame2)
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
+        # After the loop release the cap object
+        cap.release()
+        # Destroy all the windows
+        cv2.destroyAllWindows()
+        
     
 
         
@@ -176,10 +195,10 @@ def play_game(model,nwins):
     
     while True:
                 if game.user_wins==nwins:
-                    print("Player Wins 3 games!")
+                    print("Player Wins" + str(nwins) +"games!")
                     break
                 elif game.computer_wins==nwins:
-                    print("Computer Wins 3 games!")
+                    print("Computer Wins" + str(nwins) +"games!")
                     break
                 elif game.unresolved==nwins:
                     print("failed to get player move too many times!")
@@ -188,8 +207,11 @@ def play_game(model,nwins):
                     game.get_computer_choice()
                     game.get_prediction()
                     game.get_winner()
-                print("computer wins: " + str(game.computer_wins))
-                print("player wins: " + str(game.user_wins))    
+                msg1="computer wins: " + str(game.computer_wins)
+                msg2="player wins: " + str(game.user_wins)
+                game.user_update(msg1,msg2)
+                # print("computer wins: " + str(game.computer_wins))
+                # print("player wins: " + str(game.user_wins))    
 
 
 play_game(model,1)
