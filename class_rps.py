@@ -135,40 +135,24 @@ class RPSgame:
         self.user_choice=move_lookup[prediction.argmax()]
         return()
 
-# def play_game(model):
-#     game=RPSgame(model)
-#     print("Let's play Rock, Paper, Scissors - First to 3 wins!")
-#     time.sleep(1)
-#     while True:
-#                 if game.user_wins==3:
-#                     print("Player Wins 3 games!")
-#                     break
-#                 elif game.computer_wins==3:
-#                     print("Computer Wins 3 games!")
-#                     break
-#                 else:
-#                     game.get_computer_choice()
-#                     game.get_prediction()
-#                     game.get_winner()
-#                 print("computer wins: " + str(game.computer_wins))
-#                 print("player wins: " + str(game.computer_wins))
-#                 time.sleep(1)
+def play_game(model):
+    game=RPSgame(model)
+    print("Let's play Rock, Paper, Scissors - First to 3 wins!")
+    time.sleep(1)
+    while True:
+                if game.user_wins==3:
+                    print("Player Wins 3 games!")
+                    break
+                elif game.computer_wins==3:
+                    print("Computer Wins 3 games!")
+                    break
+                else:
+                    game.get_computer_choice()
+                    game.get_prediction()
+                    game.get_winner()
+                print("computer wins: " + str(game.computer_wins))
+                print("player wins: " + str(game.user_wins))    
 
-# play_game(model)
 
-game=RPSgame(model)
-print("Let's play Rock, Paper, Scissors - First to 3 wins!")
-time.sleep(1)
-while True:
-            if game.user_wins==3:
-                print("Player Wins 3 games!")
-                break
-            elif game.computer_wins==3:
-                print("Computer Wins 3 games!")
-                break
-            else:
-                game.get_computer_choice()
-                game.get_prediction()
-                game.get_winner()
-            print("computer wins: " + str(game.computer_wins))
-            print("player wins: " + str(game.user_wins))
+play_game(model)
+
