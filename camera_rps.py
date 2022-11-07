@@ -8,8 +8,10 @@ import random
 # load keras model for RPS
 model = load_model('keras_model.h5')
 
+# define RPS game as a class
 class RPSgame:
     
+    # class constructor
     def __init__(self,model):
         self.move_lookup= {
                 0 : "Rock",
@@ -27,6 +29,7 @@ class RPSgame:
         self.font=cv2.FONT_HERSHEY_SIMPLEX
         self.fontcolor= (255, 255, 255) 
 
+    # Function to aquire computer's move
     def get_computer_choice(self):
         # Define list of possible moves
         move_list = ["Rock", "Paper", "Scissors"]
@@ -34,6 +37,7 @@ class RPSgame:
         self.computer_choice = random.choice(move_list)
         return()
     
+    # Function to determine the winner of each game
     def get_winner(self):
         
         if self.computer_choice=='Rock':
@@ -91,7 +95,7 @@ class RPSgame:
                 return()
 
         
-
+    # Function to determine the user's move from the camera input
     def get_prediction(self):
         # define a video capture object
         cap = cv2.VideoCapture(0)
@@ -144,6 +148,7 @@ class RPSgame:
         self.user_choice=move_lookup[prediction.argmax()]
         return()
     
+    # Function to overlay the intro messages on the camera input
     def play_intro(self):
         introtime=3
         cap = cv2.VideoCapture(0)
@@ -164,6 +169,7 @@ class RPSgame:
         # Destroy all the windows
         cv2.destroyAllWindows()
     
+    # Function to display any string contained in "msg1" and "msg2", overlaid on the camera feed.
     def user_update(self, msg1, msg2):
         
         cap = cv2.VideoCapture(0)
@@ -197,7 +203,7 @@ def play_game(model,nwins):
     
     while True:
         if game.user_wins==nwins:
-            # print("Player Wins" + str(nwins) +"games!")
+            
             msg1="Player Wins " + str(nwins) +" games!"
             msg2="GAME OVER"
             game.user_update(msg1,msg2)
