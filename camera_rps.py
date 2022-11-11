@@ -1,13 +1,4 @@
 
-#TODO the order of your methods inside the script does not really matter, however it would be more readable and easier to understand for someone 
-# that reads this code for the first time if they could see the methods ordered based on their order of execution.
-#TODO follow the other TODO s added to your methods
-#TODO maybe format the messages printed on the screen - they can start with a capital letter for example
-#TODO reformat your code so you can get rid of blank lines and unwanted comments and also add some blank lines to improve readability - find example 
-#in the play_game function 
-#WELL DONE!!! Apart from these comments, the code looks really nice. 
-
-
 #import libraries
 import time
 import numpy as np
@@ -16,13 +7,12 @@ from keras.models import load_model
 import random
 
 # define RPS game as a class
+
 class RPSgame:
     
     # class constructor
-    def __init__(self):
 
-        #TODO maybe rename the 'failed_to_get_user_move' variable with a more descriptive name? 
-         
+    def __init__(self):  
         self.move_lookup= {
                 0 : "Rock",
                 1 : "Paper",
@@ -38,10 +28,9 @@ class RPSgame:
         self.fontcolor= (255, 255, 255)
         self.cap = cv2.VideoCapture(0)
 
+    # Method to stop video:
     def stop_video(self):
-        # After the loop release the self.cap object
         self.cap.release()
-        # Destroy all the windows
         cv2.destroyAllWindows()
 
     # Function to overlay the intro messages on the camera input
@@ -65,7 +54,6 @@ class RPSgame:
         
 
     # Function to aquire computer's move
-
     def get_computer_choice(self):
         move_list = ["Rock", "Paper", "Scissors"]
         # Choose a random word from the list of possible words
@@ -73,7 +61,6 @@ class RPSgame:
         
     
     # Function to determine the winner of each game
-
     def get_winner(self):
 
         # options_lookup = {v: k for k, v in self.move_lookup[0:4]}
@@ -87,15 +74,15 @@ class RPSgame:
             self.user_choice=options_lookup[self.user_choice]
             
             if self.user_choice == self.computer_choice: 
-                print("it's a draw!")
+                print("It's a draw!")
                 
 
             elif (self.user_choice- self.computer_choice) % 3 == 1:
-                print("computer wins!")
+                print("Computer wins!")
                 self.computer_wins+=1
                 
             else:
-                print("user wins!")
+                print("User wins!")
                 self.user_wins+=1
                 
 
@@ -103,13 +90,9 @@ class RPSgame:
     # Function to determine the user's move from the camera input
     def get_prediction(self):
 
-        # create np array to store model input
+        
         data = np.ndarray(shape=(1, 224, 224, 3), dtype=np.float32)
-
-        # timebase initialise
         time_init=time.time() 
-
-        # countdown variable
         countmax=3
 
         # run a capture countdown
@@ -174,18 +157,18 @@ def play_game(nwins):
             game.stop.video()
 
         elif game.failed_to_get_user_move==5:
-            msg1="failed to get player move too many times!"
+            msg1="Failed to get player move too many times!"
             msg2=" "
             game.user_update(msg1,msg2)
-            game.stop.video()
+            game.stop_video()
 
         else:
             game.get_computer_choice()
             game.get_prediction()
             game.get_winner()
 
-        msg1="computer wins: " + str(game.computer_wins)
-        msg2="player wins: " + str(game.user_wins)
+        msg1="Computer wins: " + str(game.computer_wins)
+        msg2="Player wins: " + str(game.user_wins)
         game.user_update(msg1,msg2)
         
         
